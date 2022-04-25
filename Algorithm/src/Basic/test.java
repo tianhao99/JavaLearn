@@ -1,9 +1,6 @@
 package Basic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ClassName test
@@ -13,46 +10,20 @@ import java.util.List;
  * @Version 1.0
  */
 public class test {
-    public static void main(String[] args) {
-        int n = 6;
-        for(int i = 0;i < n;){
-            int j = i;
-
-
-            i = j;
+    Random rand ;
+    Map<Integer,ArrayList<Integer>> map;
+    public test(int[] nums) {
+        map = new HashMap<>();
+        rand = new Random();
+        for (int i = 0; i < nums.length; i++) {
+            map.putIfAbsent(nums[i],new ArrayList<>());// 不存在，创建一个，存在不管了
+            map.get(nums[i]).add(i);// 添加索引到列表
         }
-        System.out.println(1234567);
-
-//        List<String> list1 = new ArrayList<>();
-//        list1.add(0,"abc,");
-//        list1.add(0,"oo,");
-//        list1.add(1,"dd,");
-//        list1.add(2,"pp,");
-//        list1.forEach(System.out::print);
-//        System.out.println();
-//
-//        int[][] people = new int[][]{{6,0},{5,0},{4,0},{3,2},{2,2},{1,4}};
-//        for(int[] a : reconstructQueue(people)){
-//            System.out.println(Arrays.toString(a));
-//        }
     }
 
-    public static int[][] reconstructQueue(int[][] people) {
-        Arrays.sort(people, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] person1, int[] person2) {
-                if (person1[0] != person2[0]) {
-                    return person2[0] - person1[0];
-                } else {
-                    return person1[1] - person2[1];
-                }
-            }
-        });
-        List<int[]> ans = new ArrayList<int[]>();
-        for (int[] person : people) {
-            ans.add(0, person);
-        }
-        return ans.toArray(new int[ans.size()][]);
+    public int pick(int target) {
+        ArrayList<Integer> list = map.get(target);
+        return list.get(rand.nextInt(list.size()));
     }
-
+    
 }
